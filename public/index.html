@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="Referrer" content="origin">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>PayPal Coding Assignment - Cart</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+	<h2>Cart</h2>
+	<div class="item-container"></div>
+	<h3>Shipping info</h3>
+	<ul class="form_shipping_address">
+		<li><input type="text" class="_form_shipping" name="recipient_name" placeholder="Recipient name" value="Martin Min" required></li>
+		<li>
+		<select class="_form_shipping" name="country_code" placeholder="Country code" required>
+			<option value="">Country code</option>
+			<option value="US" selected="selected">US</option>
+			<option value="CN">CN</option>
+		</select>
+		</li>
+		<li><input type="text" class="_form_shipping" name="city" placeholder="City" value="San Jose" required></li>
+		<li><input type="text" class="_form_shipping" name="state" placeholder="State" value="CA" required></li>
+		<li><input type="text" class="_form_shipping" name="line1" placeholder="Address Line1" value="4th Floor" required></li>
+		<li><input type="text" class="_form_shipping" name="line2" placeholder="Address Line2" value="Unit #34"></li>
+		<li><input type="text" class="_form_shipping" name="postal_code" placeholder="Postal Code" value="95131" required></li>
+		<li><input type="tel" class="_form_shipping" name="phone" placeholder="Phone number" value="011862212345678" required></li>
+	</ul>
+	<div class="box_btn">
+		<button class="btn_checkout">Checkout</button>
+	</div>
+
+	<div class="container_summary">
+		<h2>Confirmation</h2>
+		<div class="box_information">
+			<h3>Payment Summary</h3>
+			<div class="box_summary_billing"></div>
+			<h3>Products</h3>
+			<div class="box_summary_products"></div>
+			<h3>Shipping Info</h3>
+			<div class="box_summary_shipping"></div>
+		</div>
+		<div class="box_btn">
+			<button class="btn_back">Back</button>
+		</div>
+		<div id="paypal-button"></div>
+	</div>
+</div>
+
+<!-- Cart markup template -->
+<script id="productTemplate" type="text/html">
+<div class="box_select">
+	<input type="checkbox" name="sku" value="{sku}" class="chk_sku_{sku}">
+</div>
+<div class="box_product">
+	<p class="txt_name">{name}</p>
+	<p class="txt_description">{description} ({sku})</p>
+	<div class="box_price">
+		<span class="txt_currency">{currency}</span>
+		<span class="num_price">{price}</span>
+		<span class="num_tax">(Tax: {tax})</span>
+	</div>
+</div>
+<div class="box_qty">
+	<button class="_btn_qty_remove" data-sku="{sku}">-</button>
+	<span class="{sku}_qty num_qty">{quantity}</span>
+	<button class="_btn_qty_add" data-sku="{sku}">+</button>
+</div>
+</script>
+<!-- //Cart markup template -->
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script src="js/shopping.js"></script>
+<script src="js/paypal.js"></script>
+<script>
+//Configuration
+var PRICE_CURRENCY = 'USD';
+var PRICE_SHIPPING = 0;
+var PRICE_HANDLING_FEE = 0;
+var PRICE_SHIPPING_DISCOUNT = 0;
+var PRICE_INSURANCE = 0;
+var REDIRECT_SUCCESS = '/complete.html';
+var REDIRECT_CANCEL = '/';
+
+//Dummy transaction object
+var billingInfo = {};
+
+//Transaction object template
+var transactionTemplate = {
+	intent: 'sale',
+	payer: {
+		payment_method: 'paypal'
+	},
+	transactions: [{
+		amount: {
+			total: 0,
+			currency: PRICE_CURRENCY,
+			details: {
+				subtotal: 0,
+				tax: 0,
+				shipping: PRICE_SHIPPING,
+				handling_fee: PRICE_HANDLING_FEE,
+				shipping_discount: PRICE_SHIPPING_DISCOUNT,
+				insurance: PRICE_INSURANCE
+			}
+		},
+		item_list: {
+			items: [],
+			shipping_address: {
+				recipient_name: 'Martin Min',
+				line1: '4th Floor',
+				line2: 'Unit #34',
+				city: 'Shanghai',
+				country_code: 'CN',
+				postal_code: '95131',
+				phone: '17701834934',
+				state: 'Pudong'
+			}
+		}
+	}],
+	redirect_urls: {
+		return_url: REDIRECT_SUCCESS,
+		cancel_url: REDIRECT_CANCEL
+	}
+}
+
+//Products information in the Shopping Cart
+var productItems = [
+	{
+		name: 'hat',
+		description: 'Brown hat.',
+		price: 1,
+		tax: 0.01,
+		quantity : 0,
+		sku: 'X00001',
+		currency: PRICE_CURRENCY
+	},
+	{
+		name: 'handbag',
+		description: 'Black handbag.',
+		price: 1.2,
+		tax: 0.01,
+		quantity : 0,
+		sku: 'B00002',
+		currency: PRICE_CURRENCY
+	}
+];
+
+//Set cart products
+initProducts({
+	items : productItems,
+	container : document.querySelector('.item-container'),
+	template : document.getElementById('productTemplate').innerHTML
+});
+
+//Set Checkout Button Event
+initCheckoutEvent({
+	checkout : document.querySelector('.btn_checkout'),
+	cancel: document.querySelector('.btn_back'),
+	container: document.querySelector('.container_summary'),
+	summary: {
+		billing : document.querySelector('.box_summary_billing'),
+		product: document.querySelector('.box_summary_products'),
+		shipping: document.querySelector('.box_summary_shipping')
+	}
+});
+
+//Set Paypal Checkout Button Event
+initPaypalCheckout('#paypal-button');
+</script>
+</body>
+</html>

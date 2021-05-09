@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="Referrer" content="origin">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>PayPal Coding Assignment - Complete</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+	<div class="box_complete">
+		<h1 class="tit">Thank you for your order</h1>
+		<p class="desc">Your order has been placed and in being prcessed. You will recive an email with the order details.</p>
+		<p class="paypal_order"></p>
+		<div class="box_btn">
+			<button class="btn_payment" onclick="location.href='/'">Main Page</button>
+		</div>
+	</div>
+</div>
+<script>
+var params = location.href.split('?')[1].split('&');
+var orderResult = '';
+for(var i = 0; i < params.length; i++){
+	orderResult = orderResult + params[i].split('=')[0] + ' : ' + params[i].split('=')[1] + '<br>';
+}
+document.querySelector('.paypal_order').innerHTML = orderResult;
+</script>
+</body>
+</html>
