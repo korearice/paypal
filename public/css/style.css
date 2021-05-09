@@ -24,7 +24,7 @@ h3{font-size:14px;color:#444}
 .item-container .txt_description{padding-top:5px;color:#9b9b9b;font-size:14px}
 .item-container .box_price{padding-top:5px;color:#e56a6a;font-size:14px}
 ._btn_qty_add,._btn_qty_remove{width:25px;height:25px;border:1px solid #ccc;background:#f4f4f4;text-align:center;cursor:pointer}
-.btn_checkout{width:100%;box-sizing:border-box;padding:16px;background:#2a52a1;border:none;border-radius:5px;color:#fff;font-size:20px;font-weight:bold;cursor:pointer}
+.btn_checkout,.btn_main{width:100%;box-sizing:border-box;padding:16px;background:#2a52a1;border:none;border-radius:5px;color:#fff;font-size:20px;font-weight:bold;cursor:pointer}
 .btn_back{width:100%;box-sizing:border-box;padding:16px;background:#888;border:none;border-radius:5px;color:#fff;font-size:20px;font-weight:bold;cursor:pointer}
 .box_btn{margin-top:20px}
 #paypal-button{margin-top:15px;text-align:center}
