@@ -1,4 +1,4 @@
-# Paypal Interview Assignment
+# Interview Assignment
 ## Server side
 index.js
 ## Client side
