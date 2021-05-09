@@ -1,7 +1,8 @@
 /**
 * Description: Set paypal checkout button
+* @param {HTMLElement} Paypal Checkout Button
 */
-function initPaypalCheckout(buttonSelector){
+function initPaypalCheckout(eleButton){
 	paypal.Button.render({
 		env: 'sandbox', // Or 'production'
 		style: {
@@ -33,5 +34,5 @@ function initPaypalCheckout(buttonSelector){
 		onCancel: function(data, actions) {
 			actions.redirect();
 		} */
-	}, buttonSelector);
+	}, eleButton);
 }

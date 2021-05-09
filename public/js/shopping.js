@@ -11,7 +11,7 @@ function getProductBySku(sku){
 
 /**
 * Description: Set quantity button event for created elements
-* @param {HTMLDivElement} Dummy div elment for cart list
+* @param {HTMLElement} Dummy div elment for cart list
 */
 function setButtonEvent(ele){
 	// Quantity add
@@ -103,7 +103,7 @@ function createShippingInfo(){
 
 /**
 * Description: Set checkout billing summary markup
-* @param {HTMLDivElement} Billing summary container element
+* @param {HTMLElement} Billing summary container element
 */
 function setBillingSummary(ele){
 	var billingSummary = 'Total Amount: ' + billingInfo.transactions[0].amount.currency + ' ' + billingInfo.transactions[0].amount.total + '<br>';
@@ -113,7 +113,7 @@ function setBillingSummary(ele){
 
 /**
 * Description: Set checkout product summary markup
-* @param {HTMLDivElement} Product summary container element
+* @param {HTMLElement} Product summary container element
 */
 function setProductSummary(ele){
 	var productSummary = '';
@@ -126,7 +126,7 @@ function setProductSummary(ele){
 
 /**
 * Description: Set checkout shipping summary markup
-* @param {HTMLDivElement} Shipping summary container element
+* @param {HTMLElement} Shipping summary container element
 */
 function setShippingSummary(ele){
 	var shippingSummary = JSON.stringify(billingInfo.transactions[0].item_list.shipping_address).replace(/{|}|"/g,'').replace(/,/g,'<br>').replace(/_/g, ' ');
