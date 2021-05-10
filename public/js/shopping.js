@@ -77,6 +77,8 @@ function createBilling(){
 		for(var key in details){
 			billingInfo.transactions[0].amount.total += details[key];
 		}
+		details.subtotal = details.subtotal.toFixed(2);
+		details.tax = details.tax.toFixed(2)
 		billingInfo.transactions[0].amount.total = billingInfo.transactions[0].amount.total.toFixed(2);
 		return true;
 	} else{
